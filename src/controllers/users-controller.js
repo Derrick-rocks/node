@@ -7,7 +7,11 @@ const getUsers = function (req, res, next) {
         {id: 2, name: 'nancy', age: 22},
         {id: 3, name: 'test', age: 22},
     ]
-    return(res.json({users: list}))
+    // return(res.json({users: list}))
+    res.render('list', {
+        list: list
+    });
+
 }
 
 const createUser = function (req, res, next) {

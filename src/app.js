@@ -8,6 +8,10 @@ const port = 3000
 
 app.use(express.json()) //Notice express.json middleware
 
+app.set('views', 'src/views');
+app.set('view engine', 'ejs');
+
+
 app.use(logger)
 app.get('/users', getUsers)
 
