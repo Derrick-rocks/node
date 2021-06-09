@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Derrick-rocks/node/issues"
   },
-  "homepage": "https://github.com/Derrick-rocks/node#readme"
+  "homepage": "https://github.com/Derrick-rocks/node#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
