@@ -1,2 +1,24 @@
 
 create table users (name varchar(255), age int);
+
+ALTER TABLE users ADD firstName varchar(255);
+ALTER TABLE users ADD lastName varchar(255);
+
+ALTER TABLE users ADD updatedAt datetime;
+
+
+ALTER TABLE users ADD id int;
+
+
+
+# todo list
+x sequelize init
+x add user model
+x insert to users
+- read from users
+
+
+ALTER TABLE users CHANGE id id INT(10) AUTO_INCREMENT PRIMARY KEY;
+
+
+truncate vs delete

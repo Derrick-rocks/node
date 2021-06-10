@@ -1,31 +1,35 @@
+const {User} = require("../../models/User");
 const {mClient} = require("../lib/mysql_client");
+var _ = require('lodash')
 
-
-const getUsers = function (req, res, next) {
-    const list = [
-        {id: 1, name: 'jacky', age: 22},
-        {id: 2, name: 'nancy', age: 22},
-        {id: 3, name: 'test', age: 22},
-    ]
-    res.render('list', {
-        list: list
-    });
+const getUser = async function (req, res, next) {
+    const {id} = req.params;
+    console.log("> getUser id: %s", id)
+    const user = await User.findByPk(id)
+        .then(u => _.pick(u, ['id', 'firstName']))
+        .catch(err => console.log(err))
+    // const user =  await User.findOne({where: {id: id}})
+    // // transform
+    // const us = _.pick(user, ['id', 'firstName'])
+    res.json({user: user})
 }
 
-const createUser = function (req, res, next) {
-    const {name, age, gender} = req.body;
-    mClient().query('INSERT INTO users SET ?', {name: name, age: age}, function (error, results, fields) {
-        if (error) throw error;
-        console.log(results.insertId);
-    });
 
 
-    return(res.json({code: 0, message: 'user was created'}))
+const getUsers = async function (req, res, next) {
+    const users = await User.findAll({order: [['createdAt', 'DESC']]});
+    res.json({users: users.map(u => u.toJSON())});
+}
 
+const createUser = async function (req, res, next) {
+    const {firstName, lastName} = req.body;
+    const user = await User.create({firstName: firstName, lastName: lastName})
+    return (res.json({code: 0, user: user.toJSON()}))
 }
 
 module.exports = {
     getUsers: getUsers,
     createUser: createUser,
+    getUser: getUser
 };
 
