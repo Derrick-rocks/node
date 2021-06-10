@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
 var CryptoJS = require("crypto-js");
+const {Course} = require("./Course");
 
 const sequelize = new Sequelize('express_demo', 'root', 'password', {
     host: 'localhost',
@@ -54,5 +55,9 @@ User.init({
     sequelize,
     modelName: 'User'
 });
+
+
+
+
 
 exports.User = User;

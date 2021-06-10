@@ -1,4 +1,7 @@
 const express = require('express')
+const {addCourseToUser} = require("./controllers/users-controller");
+const {getCourse} = require("./controllers/courses-controller");
+const {getCourses} = require("./controllers/courses-controller");
 const {getUser} = require("./controllers/users-controller");
 const {Sequelize} = require("sequelize");
 const {mClient} = require("./lib/mysql_client");
@@ -8,7 +11,8 @@ const {getAbout} = require("./controllers/abouts-controller");
 const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 
-
+const {Course} = require("../models/Course");
+const {User} = require("../models/User");
 
 
 
@@ -16,7 +20,17 @@ const {logger} = require("./middlewares/mylogger_middleware");
     const app = express()
     const port = 3000
 
+    User.hasMany(Course,
+        {
+            foreignKey: 'user_id',
+            as: 'courses'
 
+        })
+
+    Course.belongsTo(User, {
+        foreignKey: 'user_id',
+        as: 'user'
+    })
 
     // mClient()
     app.use(express.json()) //Notice express.json middleware
@@ -26,14 +40,12 @@ const {logger} = require("./middlewares/mylogger_middleware");
 
     app.use(logger)
     app.get('/users', getUsers)
-
+    app.get('/courses', getCourses)
+    app.get('/courses/:id', getCourse)
+    app.post('/add_course', addCourseToUser)
     app.get('/users/:id', getUser)
-
-
     app.post('/users', createUser)
-
     app.get('/about',getAbout)
-
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`)
     })})();
