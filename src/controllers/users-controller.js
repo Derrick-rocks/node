@@ -2,6 +2,9 @@ const {User} = require("../../models/User");
 const {mClient} = require("../lib/mysql_client");
 var _ = require('lodash')
 
+
+
+
 const getUser = async function (req, res, next) {
     const {id} = req.params;
     console.log("> getUser id: %s", id)
@@ -17,13 +20,18 @@ const getUser = async function (req, res, next) {
 
 
 const getUsers = async function (req, res, next) {
-    const users = await User.findAll({order: [['createdAt', 'DESC']]});
-    res.json({users: users.map(u => u.toJSON())});
+    const users = await User.findAll({order: [['createdAt', 'DESC']]})
+        .then(users => users.map( u => ({...u.toJSON(), fullName: u.fullName}))) ;
+    res.json({users: users});
 }
 
 const createUser = async function (req, res, next) {
-    const {firstName, lastName} = req.body;
-    const user = await User.create({firstName: firstName, lastName: lastName})
+    const {firstName, lastName, password, email} = req.body;
+    const user =  User.build({firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password})
+    await user.save();
     return (res.json({code: 0, user: user.toJSON()}))
 }
 
