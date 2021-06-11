@@ -35,3 +35,12 @@ INSERT INTO courses (title, user_id) VALUES ('course 1', 2);
 
 
 sequelize db:create
+
+
+
+sequelize model:generate
+
+
+npx sequelize-cli model:generate --name Product --attributes name:string
+
+npx sequelize-cli db:migrate

@@ -1,4 +1,4 @@
-const {Course} = require("../models/Course");
+const {Course} = require("../../deprecated/Course");
 
 const getCourses = async function (req, res, next) {
 

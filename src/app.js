@@ -1,4 +1,5 @@
 const express = require('express')
+const db = require("./models");
 const {addCourseToUser} = require("./controllers/users-controller");
 const {getCourse} = require("./controllers/courses-controller");
 const {getCourses} = require("./controllers/courses-controller");
@@ -11,8 +12,10 @@ const {getAbout} = require("./controllers/abouts-controller");
 const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 
-const {Course} = require("./models/Course");
-const {User} = require("./models/User");
+const {Course} = require("../deprecated/Course");
+const {User} = require("../deprecated/User");
+
+
 
 
 
@@ -31,6 +34,8 @@ const {User} = require("./models/User");
         foreignKey: 'user_id',
         as: 'user'
     })
+
+    // console.log(db)
 
     // mClient()
     app.use(express.json()) //Notice express.json middleware
