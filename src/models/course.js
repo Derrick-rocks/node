@@ -28,11 +28,30 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
+    },
+    deletedAt: {
+      type: Sequelize.DATE
     }
   }, {
+
+    scopes: {
+        available: {
+          where: {
+            deletedAt: null
+          }
+        }
+    },
+
+    hooks: {
+      afterCreate: (user, options) => {
+        // nofify all user
+        console.log("> notify users after create a new course")
+      }
+    },
     sequelize,
     modelName: 'Course',
       tableName: 'Courses'
   });
   return Course;
 };
+

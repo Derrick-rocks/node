@@ -1,4 +1,6 @@
 'use strict';
+const CryptoJS = require("crypto-js");
+
 const {
   Model
 } = require('sequelize');
@@ -21,7 +23,41 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    firstName: DataTypes.STRING
+
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      get() {
+        const raw = this.getDataValue('firstName')
+        return raw ? raw.toUpperCase() : null;
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING
+    },
+
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true,
+      },
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      set(value) {
+
+        const enPassword = CryptoJS.HmacSHA1("Message", "Key").toString()
+        this.setDataValue('password', enPassword)
+      },
+
+    },
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.firstName} - ${this.lastName}`
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',

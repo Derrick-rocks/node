@@ -1,5 +1,6 @@
 const express = require('express')
 const db = require("./models");
+const {deleteCourse} = require("./controllers/courses-controller");
 const {addCourseToUser} = require("./controllers/users-controller");
 const {getCourse} = require("./controllers/courses-controller");
 const {getCourses} = require("./controllers/courses-controller");
@@ -47,6 +48,7 @@ const {logger} = require("./middlewares/mylogger_middleware");
     app.get('/users', getUsers)
     app.get('/courses', getCourses)
     app.get('/courses/:id', getCourse)
+    app.post('/courses/:id/delete', deleteCourse)
     app.post('/add_course', addCourseToUser)
     app.get('/users/:id', getUser)
     app.post('/users', createUser)
