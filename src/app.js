@@ -11,8 +11,8 @@ const {getAbout} = require("./controllers/abouts-controller");
 const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 
-const {Course} = require("../models/Course");
-const {User} = require("../models/User");
+const {Course} = require("./models/Course");
+const {User} = require("./models/User");
 
 
 

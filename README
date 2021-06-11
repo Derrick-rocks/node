@@ -32,3 +32,6 @@ create table courses (title varchar(255), user_id int);
 
 
 INSERT INTO courses (title, user_id) VALUES ('course 1', 2);
+
+
+sequelize db:create

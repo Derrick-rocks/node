@@ -1,8 +1,8 @@
-const {User} = require("../../models/User");
+const {User} = require("../models/User");
 const {mClient} = require("../lib/mysql_client");
 var _ = require('lodash')
 
-const {Course} = require("../../models/Course");
+const {Course} = require("../models/Course");
 
 
 
