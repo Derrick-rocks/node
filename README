@@ -44,3 +44,12 @@ sequelize model:generate
 npx sequelize-cli model:generate --name Product --attributes name:string
 
 npx sequelize-cli db:migrate
+
+
+npx sequelize-cli  migration:generate --name add_more_to_products
+
+npx sequelize-cli model:generate --name User --attributes firstName:string
+
+
+
+https://gist.github.com/vapurrmaid/a111bf3fc0224751cb2f76532aac2465

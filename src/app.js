@@ -12,8 +12,8 @@ const {getAbout} = require("./controllers/abouts-controller");
 const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 
-const {Course} = require("../deprecated/Course");
-const {User} = require("../deprecated/User");
+// const {Course} = require("../deprecated/Course");
+// const {User} = require("../deprecated/User");
 
 
 
@@ -23,17 +23,17 @@ const {User} = require("../deprecated/User");
     const app = express()
     const port = 3000
 
-    User.hasMany(Course,
-        {
-            foreignKey: 'user_id',
-            as: 'courses'
-
-        })
-
-    Course.belongsTo(User, {
-        foreignKey: 'user_id',
-        as: 'user'
-    })
+    // User.hasMany(Course,
+    //     {
+    //         foreignKey: 'user_id',
+    //         as: 'courses'
+    //
+    //     })
+    //
+    // Course.belongsTo(User, {
+    //     foreignKey: 'user_id',
+    //     as: 'user'
+    // })
 
     // console.log(db)
 
