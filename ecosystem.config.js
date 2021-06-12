@@ -16,7 +16,7 @@ module.exports = {
     staging : {
       user : 'ubuntu',
       host : '54.199.236.116',
-      ref  : 'origin/master',
+      ref  : 'origin/main',
       repo : 'git@github.com:Derrick-rocks/node.git',
       path : '/home/ubuntu/node-express-prod',
       'post-deploy' : 'npm install && pm2 start ecosystem.config.js --env prod',
