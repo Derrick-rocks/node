@@ -5,23 +5,28 @@ var _ = require('lodash')
 const {Course} = require("../../deprecated/Course");
 
 const db = require("../models")
+const {UserNotFound} = require("../middlewares/handle_errors");
 
 
 
 
 
 const getUser = async function (req, res, next) {
-    const {id} = req.params;
-    console.log("> getUser id: %s", id)
-    const user = await db.User.findByPk(id)
-        // .then(u => _.pick(u, ['id', 'firstName']))
-        // .catch(err => console.log(err))
-    // const user =  await User.findOne({where: {id: id}})
-    // // transform
-    // const us = _.pick(user, ['id', 'firstName'])
 
-    const courses = await user.getCourses();
-    res.json({user: user.toJSON(), courses: courses.map(c =>c.toJSON())})
+    try {
+        const {id} = req.params;
+        console.log("> getUser id: %s", id)
+        const user = await db.User.findByPk(id)
+
+        if (!user) {
+            throw new UserNotFound(`No User Found (id: ${id})`)
+        }
+
+        const courses = await user.getCourses();
+        res.json({user: user.toJSON(), courses: courses.map(c =>c.toJSON())})
+    }catch (err) {
+        next(err)
+    }
 }
 
 
