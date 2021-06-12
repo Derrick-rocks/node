@@ -12,6 +12,9 @@ const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 const {handleErrors} = require("./middlewares/handle_errors");
 const cors = require('cors')
+var fs = require('fs')
+var morgan = require('morgan')
+var path = require('path')
 
 
 const catchAsync = fn => {
@@ -24,6 +27,16 @@ const catchAsync = fn => {
 (async function() {
     const app = express()
     const port = 3000
+
+// create a write stream (in append mode)
+
+    console.log("> %s", path.join(__dirname, 'access.log'));
+    var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// setup the logger
+    app.use(morgan('combined', { stream: accessLogStream }))
+
+
     app.use(express.json()) //Notice express.json middleware
 
     app.set('views', 'src/views');
