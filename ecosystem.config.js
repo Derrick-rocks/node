@@ -19,7 +19,7 @@ module.exports = {
       ref  : 'origin/main',
       repo : 'git@github.com:Derrick-rocks/node.git',
       path : '/home/ubuntu/node-express-prod',
-      'post-deploy' : 'npm install && pm2 start ecosystem.config.js --env prod',
+      'post-deploy' : 'ln -sf ../../shared/config.json db/config.json && npm install && ./node_modules/sequelize-cli/lib/sequelize db:migrate --env=production && pm2 start ecosystem.config.js --env prod',
     }
   }
 };
