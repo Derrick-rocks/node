@@ -13,7 +13,7 @@ module.exports = {
   }],
 
   deploy : {
-    staging : {
+    prod : {
       user : 'ubuntu',
       host : '54.199.236.116',
       ref  : 'origin/main',
