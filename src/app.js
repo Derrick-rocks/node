@@ -11,8 +11,14 @@ const {getAbout} = require("./controllers/abouts-controller");
 const {getUsers} = require("./controllers/users-controller");
 const {logger} = require("./middlewares/mylogger_middleware");
 const {handleErrors} = require("./middlewares/handle_errors");
+const cors = require('cors')
 
 
+const catchAsync = fn => {
+    return (req, res, next) => {
+        fn(req, res, next).catch(next);
+    };
+};
 
 
 (async function() {
@@ -24,13 +30,15 @@ const {handleErrors} = require("./middlewares/handle_errors");
     app.set('view engine', 'ejs');
 
     app.use(logger)
+    app.use(cors())
 
-    app.get('/users', getUsers)
+
+    app.get('/users', catchAsync(getUsers))
     app.get('/courses', getCourses)
     app.get('/courses/:id', getCourse)
     app.post('/courses/:id/delete', deleteCourse)
     app.post('/add_course', addCourseToUser)
-    app.get('/users/:id', getUser)
+    app.get('/users/:id', catchAsync(getUser))
     app.post('/users', createUser)
     app.get('/about',getAbout)
 

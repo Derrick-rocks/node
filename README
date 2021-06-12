@@ -53,3 +53,6 @@ npx sequelize-cli model:generate --name User --attributes firstName:string
 
 
 https://gist.github.com/vapurrmaid/a111bf3fc0224751cb2f76532aac2465
+
+
+https://medium.com/@SigniorGratiano/express-error-handling-674bfdd86139
